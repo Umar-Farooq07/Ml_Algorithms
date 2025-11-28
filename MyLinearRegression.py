@@ -28,43 +28,6 @@ class mylr():
 
     def predict(self,xtest):
         return np.dot(xtest,self.weights.T)+self.bias
-    
-import numpy as np
-
-class gptmylr:
-
-    def __init__(self):
-        self.weights = None
-        self.bias = None
-    
-    def fit(self, xtrain, ytrain, lr, epochs):
-        X = np.asarray(xtrain)
-        y = np.asarray(ytrain)
-
-        m, n = X.shape
-        self.weights = np.zeros(n)
-        self.bias = 0.0
-
-        for i in range(epochs):
-            pred = np.dot(X, self.weights) + self.bias
-            loss = y - pred   # your requested loss definition
-
-            cost = np.mean(loss**2)
-
-            # gradients (consistent with your loss = y - pred)
-            dw = -(2/m) * np.dot(X.T, loss)
-            db = -(2/m) * np.sum(loss)
-
-            # gradient descent update
-            self.weights -= lr * dw
-            self.bias -= lr * db
-
-            
-
-    def predict(self, xtest):
-        X = np.asarray(xtest)
-        return np.dot(X, self.weights) + self.bias
-
 
 
 
@@ -90,16 +53,13 @@ model1.fit(xtrain,ytrain, 0.005,10000)
 print(model1.weights)
 model1pred= model1.predict(xtest)
 
-model2 = gptmylr()
-model2.fit(xtrain,ytrain,0.001,1000)
-print(model2.weights)
-model2pred= model2.predict(xtest)
+
 
 model3= LinearRegression()
 model3.fit(xtrain,ytrain)
 model3pred= model3.predict(xtest)
 
-print(mean_squared_error(ytest,model1pred),mean_squared_error(ytest,model2pred),mean_squared_error(ytest,model3pred))
+print(mean_squared_error(ytest,model1pred),mean_squared_error(ytest,model3pred))
 
 
 
